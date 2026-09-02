@@ -17,14 +17,14 @@ jobs:
         run: |
           set -euo pipefail
           URL=$(tr -d '\n' < download-url.txt)
-          curl -L --fail --retry 3 -A "curl/8 GitHubActions" -o liuguang-1.3.0.apk "$URL"
-          test "$(stat -c%s liuguang-1.3.0.apk)" -gt 1000000
-          ls -lh liuguang-1.3.0.apk
+          curl -L --fail --retry 3 -A "curl/8 GitHubActions" -o liuguang-1.3.1.apk "$URL"
+          test "$(stat -c%s liuguang-1.3.1.apk)" -gt 1000000
+          ls -lh liuguang-1.3.1.apk
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release delete v1.3.0 --yes || true
-          gh release create v1.3.0 liuguang-1.3.0.apk \
-            --title "流光 1.3.0 sideload" \
-            --notes "Third-cut Android sideload APK (not on Play Store). package com.qizi.vod, version 1.3.0+5. kUseMock=false. kBaseUrl=https://lumen-cinema.vercel.app (no /api). Live demo catalog: GET /types, /vods, /home (sections list+items), /vods/:id mp4+hls. Tabs: 首页 / 发现 / 历史 / 我的. Empty state only when lists are empty."
+          gh release delete v1.3.1 --yes || true
+          gh release create v1.3.1 liuguang-1.3.1.apk \
+            --title "流光 1.3.1 sideload" \
+            --notes "Android sideload APK (not on Play Store). package com.qizi.vod, version 1.3.1+6. kUseMock=false. kBaseUrl=https://lumen-cinema.vercel.app (no /api). Covers: .svg via flutter_svg, .png/.jpg via CachedNetworkImage. Renders live BFF pic URLs; empty state only when lists are empty."
