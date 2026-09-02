@@ -17,14 +17,14 @@ jobs:
         run: |
           set -euo pipefail
           URL=$(tr -d '\n' < download-url.txt)
-          curl -L --fail --retry 3 -o liuguang-1.0.0.apk "$URL"
-          test "$(stat -c%s liuguang-1.0.0.apk)" -gt 1000000
-          ls -lh liuguang-1.0.0.apk
+          curl -L --fail --retry 3 -o liuguang-1.2.0.apk "$URL"
+          test "$(stat -c%s liuguang-1.2.0.apk)" -gt 1000000
+          ls -lh liuguang-1.2.0.apk
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release delete v1.0.0 --yes || true
-          gh release create v1.0.0 liuguang-1.0.0.apk \
-            --title "流光 1.0.0 sideload" \
-            --notes "Android sideload APK (not on Play Store). package com.qizi.vod. kUseMock=false. kBaseUrl=https://lumen-cinema.vercel.app. Empty CMS catalog is expected."
+          gh release delete v1.2.0 --yes || true
+          gh release create v1.2.0 liuguang-1.2.0.apk \
+            --title "流光 1.2.0 sideload" \
+            --notes "Android sideload APK (not on Play Store). package com.qizi.vod. kUseMock=false. kBaseUrl=https://lumen-cinema.vercel.app (no /api). Tabs: 首页 / 发现 / 历史 / 我的. Live BFF catalog: 3 types, 6 vods."
